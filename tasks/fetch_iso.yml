@@ -22,4 +22,4 @@
   loop: "{{ rancheros_latest.json.assets }}"
   when: "'rancheros-proxmoxve-autoformat.iso' in item.name"
   set_fact:
-    swarm_vm_iso: "{{ item.name | splitext | first }}-{{ rancheros_latest.json.name }}.iso"
+    rancheros_vm_iso: "{{ item.name | splitext | first }}-{{ rancheros_latest.json.name }}.iso"
