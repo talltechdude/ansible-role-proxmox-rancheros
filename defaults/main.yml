@@ -1,0 +1,23 @@
+---
+# defaults file for talltechdude.proxmox_rancheros
+
+ssh_authorized_keys: []
+pve_snippets_path: "/var/lib/vz/snippets"
+pve_iso_path: "/var/lib/vz/template/iso"
+pve_host: localhost
+mounts: []
+
+pve_api_host: "{{ pve_host }}"
+pve_api_user: "root@pam"
+pve_api_pass: ""
+swarm_vm_pve_node: "{{ pve_host }}"
+swarm_vm_id: "101"
+swarm_vm_bridge: "vmbr0"
+swarm_vm_disksize: "32"
+swarm_vm_sockets: "2"
+swarm_vm_cores: "1"
+swarm_vm_tag: "100"
+swarm_vm_memory: "2048"
+swarm_vm_storage: "local"
+swarm_vm_vga: "qxl"
+swarm_vm_iso: "local:iso/rancheros-v1.0.2.iso"

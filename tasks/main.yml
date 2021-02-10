@@ -1,0 +1,14 @@
+---
+# tasks file for talltechdude.proxmox_rancheros
+
+- name: Build cloud config
+  include: build_cloud_config.yml
+  delegate_to: "{{ pve_host }}"
+
+- name: Fetch ISO
+  include: fetch_iso.yml
+  delegate_to: "{{ pve_host }}"
+
+- name: Build VMs
+  include: create_vm.yml
+  delegate_to: "{{ pve_host }}"

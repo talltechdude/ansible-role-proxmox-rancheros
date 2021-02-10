@@ -1,0 +1,25 @@
+---
+#
+
+
+- name: Get latest build
+  uri:                                                               
+    url: https://api.github.com/repos/rancher/os/releases/latest
+    return_content: true                                             
+  register: rancheros_latest
+
+# - debug:
+#     var: rancheros_latest
+
+- name: "Download rancheros-proxmoxve-autoformat.iso {{ rancheros_latest.json.tag_name }}"
+  loop: "{{ rancheros_latest.json.assets }}"
+  when: "'rancheros-proxmoxve-autoformat.iso' in item.name"
+  get_url:                                                        
+    url: "{{ item.browser_download_url }}"                       
+    dest: "{{ pve_iso_path }}/{{ item.name | splitext | first }}-{{ rancheros_latest.json.name }}.iso"
+  
+- name: Store ISO name
+  loop: "{{ rancheros_latest.json.assets }}"
+  when: "'rancheros-proxmoxve-autoformat.iso' in item.name"
+  set_fact:
+    swarm_vm_iso: "{{ item.name | splitext | first }}-{{ rancheros_latest.json.name }}.iso"

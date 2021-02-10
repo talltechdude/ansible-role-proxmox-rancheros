@@ -1,0 +1,31 @@
+#cloud-config
+ssh_authorized_keys:
+{% for public_key in ssh_authorized_keys %}
+  - {{ public_key }}
+{% endfor %}
+
+hostname: "{{ inventory_hostname }}"
+
+rancher:
+  console: ubuntu
+  cloud_init:
+    datasources:
+    - configdrive:/media/config-2
+  environment:
+    EXTRA_CMDLINE: /init
+  state:
+    autoformat:
+    - /dev/sda
+    - /dev/vda
+    dev: LABEL=RANCHER_STATE
+    wait: true
+
+{% if nfs_mounts is defined %}
+mounts:
+{% for mount in nfs_mounts %}
+- - {{ mount.url }}
+  - {{ mount.path }}
+  - nfs4
+  - ""
+{% endfor %}
+{% endif %}

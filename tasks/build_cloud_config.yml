@@ -1,0 +1,9 @@
+---
+
+- name: Ensure folder exist
+  file:
+    path: "{{ pve_snippets_path }}"
+    state: directory
+- template:
+    src: "cloud-config.yml.j2"
+    dest: "{{ pve_snippets_path }}/{{ inventory_hostname }}.yaml"
