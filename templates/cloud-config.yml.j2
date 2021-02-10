@@ -20,6 +20,23 @@ rancher:
     dev: LABEL=RANCHER_STATE
     wait: true
 
+  network:
+    interfaces:
+      {{ rancheros_vm_net }}:
+{% if ansible_host | ipaddr('bool') %}
+        dhcp: false
+        mtu: 1500
+        address: "{{ ansible_host }}{{ rancheros_vm_subnet }}"
+{% if rancheros_vm_gateway is defined %}
+        gateway: "{{ rancheros_vm_gateway }}"
+{% endif %}
+    dns:
+      nameservers:
+        - "{{ rancheros_vm_dns | default('1.1.1.1') }}"
+{% else %}
+        dhcp: true
+{% endif %}
+
 {% if nfs_mounts is defined %}
 mounts:
 {% for mount in nfs_mounts %}
