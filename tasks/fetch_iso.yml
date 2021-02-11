@@ -14,6 +14,7 @@
 - name: "Download rancheros-proxmoxve-autoformat.iso {{ rancheros_latest.json.tag_name }}"
   loop: "{{ rancheros_latest.json.assets }}"
   when: "'rancheros-proxmoxve-autoformat.iso' in item.name"
+  run_once: true
   get_url:                                                        
     url: "{{ item.browser_download_url }}"                       
     dest: "{{ pve_iso_path }}/{{ item.name | splitext | first }}-{{ rancheros_latest.json.name }}.iso"

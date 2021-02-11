@@ -1,15 +1,29 @@
 ---
 #
 
-- name: Remove VMs
-  proxmox_kvm:
-    api_host    : "{{ pve_api_host }}"
-    api_user    : "{{ pve_api_user }}"
-    api_password: "{{ pve_api_pass }}"
-    node        : "{{ rancheros_vm_pve_node }}"
-    name        : "{{ inventory_hostname }}"
-    state       : absent
-  #register: vmstart_result
+# - name: Stop VMs
+#   proxmox_kvm:
+#     api_host    : "{{ pve_api_host }}"
+#     api_user    : "{{ pve_api_user }}"
+#     api_password: "{{ pve_api_pass }}"
+#     node        : "{{ rancheros_vm_pve_node }}"
+#     name        : "{{ inventory_hostname }}"
+#     state       : stopped
+
+# - name: Remove VMs
+#   proxmox_kvm:
+#     api_host    : "{{ pve_api_host }}"
+#     api_user    : "{{ pve_api_user }}"
+#     api_password: "{{ pve_api_pass }}"
+#     node        : "{{ rancheros_vm_pve_node }}"
+#     name        : "{{ inventory_hostname }}"
+#     state       : absent
+#   register: vmremove_result
+
+# - name: Waiting 10s...
+#   pause:
+#     seconds: 10
+#   when: vmremove_result.changed
 
 - name: Create VM
   proxmox_kvm:
